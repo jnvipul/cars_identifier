@@ -13,12 +13,13 @@ from fastai.vision import *
 from flask import Flask, request, redirect, url_for
 import json
 
+# Create flask app
+app = Flask(__name__)
+
 MODEL_PATH = 'model'
 UPLOAD_FOLDER = 'uploaded_images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-app = Flask(__name__)
 
 @app.route("/cars/v1/get_car_details", methods=['GET', 'POST'])
 def get_car_details():
@@ -31,8 +32,9 @@ def get_car_details():
             filename = file.filename
             extension = filename.rsplit('.', 1)[1]
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], f'img.{extension}'))
-            car_details = predict_labels()
-            return json.dumps({'labels':labels})
+            car_class = predict()
+            print(car_class)
+            return json.dumps({'class':car_class})
         else:
             return '''
             <!doctype html>
@@ -50,7 +52,7 @@ def get_car_details():
     </form>
     '''
 
-def predict_labels():
+def predict():
     """
     Predict tags on uploaded image
     """
@@ -63,7 +65,18 @@ def predict_labels():
     # make prediction
     print("Predicting")
     preds, _ = learn.get_preds(ds_type=DatasetType.Test)
-    return preds
+    preds = np.argmax (preds, axis = 1)
+    preds = preds.data.numpy()
+    # return result at zero index as test dataset has only one image
+    return int(preds[0])
+
+def allowed_file(filename):
+    """
+    Returns:
+        True if given file extension is allowed, otherwise False
+    """
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 # Used as Singelton
 class Model:
@@ -84,7 +97,10 @@ class Model:
             Model.instance = Model()
         return Model.instance
 
-
+def setup():
+    # create required directories
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
 
 if __name__ == '__main__':
     setup()
