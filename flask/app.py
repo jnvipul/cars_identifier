@@ -17,6 +17,7 @@ import json
 app = Flask(__name__)
 
 MODEL_PATH = 'model'
+CARS_META_FILE = 'cars_meta.csv'
 UPLOAD_FOLDER = 'uploaded_images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -33,8 +34,8 @@ def get_car_details():
             extension = filename.rsplit('.', 1)[1]
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], f'img.{extension}'))
             car_class = predict()
-            print(car_class)
-            return json.dumps({'class':car_class})
+            car_details = get_car_details_from_class(car_class)
+            return json.dumps({'class':car_class ,'car_details':car_details})
         else:
             return '''
             <!doctype html>
@@ -77,6 +78,12 @@ def allowed_file(filename):
     """
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+def get_car_details_from_class(car_class):
+    cars_meta = pd.read_csv(CARS_META_FILE)
+    car_details = cars_meta.loc[car_class]['class_names']
+    print(car_details)
+    return car_details
 
 # Used as Singelton
 class Model:
