@@ -40,14 +40,14 @@ def get_car_details():
         else:
             return '''
             <!doctype html>
-            <title>Upload new File</title>
+            <title>Upload Car Image</title>
             <h1>File Select Error!</h1>
             <a href="/file">file</a>
             '''
     return '''
     <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
+    <title>Upload Car Image</title>
+    <h1>Upload Car Image</h1>
     <form action="" method=post enctype=multipart/form-data>
       <p><input type=file name=file>
          <input type=submit value=Upload>

@@ -13,4 +13,5 @@ RUN pip install google-cloud-storage
 ADD app.py .
 ADD cars_meta.csv .
 ADD model ./model
+ADD static ./static
 CMD [ "python", "app.py" ]i
