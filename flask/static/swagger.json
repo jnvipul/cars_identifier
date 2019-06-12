@@ -1,0 +1,75 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Cars Identifier",
+    "description" : "Identify car make and model from a given car image.",
+    "contact" : {
+      "name" : "Vipul Jain(VJ)",
+      "email" : "messagevipul@gmail.com"
+    },
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "http://tensortaal.com",
+    "description" : "Production Server"
+  },
+  {
+    "url" : "http://0.0.0.0:4000",
+    "description" : "Local Server"
+  }],
+  "paths" : {
+    "/cars/v1/get_car_details" : {
+      "post" : {
+        "description" : "Get a car's model and make from the uploaded image",
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/body"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful prediction",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Car"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Car" : {
+        "properties" : {
+          "class" : {
+            "type" : "integer",
+            "example" : 4
+          },
+          "car_details" : {
+            "type" : "string",
+            "example" : "Audi A4 2011"
+          }
+        },
+        "description" : "A car object structure"
+      },
+      "body" : {
+        "type" : "object",
+        "properties" : {
+          "file" : {
+            "type" : "string",
+            "format" : "binary"
+          }
+        }
+      }
+    }
+  }
+}
