@@ -11,6 +11,7 @@ import os
 
 from fastai.vision import *
 from flask import Flask, request, redirect, url_for
+from flask_swagger_ui import get_swaggerui_blueprint
 import json
 
 # Create flask app
@@ -84,6 +85,18 @@ def get_car_details_from_class(car_class):
     car_details = cars_meta.loc[car_class]['class_names']
     print(car_details)
     return car_details
+
+### swagger specific ###
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Cars Flask App"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
 # Used as Singelton
 class Model:

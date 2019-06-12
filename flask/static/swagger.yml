@@ -1,0 +1,46 @@
+openapi: 3.0.0
+info:
+  version: '1.0.0'
+  title: 'Cars Identifier'
+  description: 'Identify car make and model from a given car image.'
+  contact:
+    name: Vipul Jain(VJ)
+    email: messagevipul@gmail.com
+
+servers:
+  - url: http://localhost.com:4000
+    description: Production Server
+
+paths:
+  /cars/v1/get_car_details:
+    post:
+      description: Get a car's model and make from the uploaded image
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  type: string
+                  description: file to upload
+                  format: binary
+      responses:
+        200:
+          description: Successful prediction
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/Car'
+
+components:
+  schemas:
+    Car:
+      description: A car object structure
+      properties:
+        class:
+          type: integer
+          example: 4
+        car_details:
+          type: string
+          example: Audi A4 2011
