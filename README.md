@@ -43,8 +43,10 @@ This is a very complicated problem, and thus we need a big and complex network f
 For learning rate selection, **Cycling learning rates** has been used as per the [paper by Leslie Smith](https://arxiv.org/abs/1506.01186).
 Idea is to cycle the learning rate between lower bound and upper bound in order to escape local minima and saddle points. 
 
-### Data Augmentation
+### Feature Engineering - Data Augmentation
 Data Augmentation techniques have been used and experimented for the kind of data we have. For instance; for car pictures - **warp(perspective), rotation, flips, zoom, lightning** are good augmentation technique; and improved the results.
+<br>
+Tried more augmentaion techniques like **Jitter, Crop-Pad etc** but the didn't seem to improve the model as of now. <br>
 (More experimentation and study could be done here)
 
 ### Epoch Counts
@@ -80,6 +82,8 @@ docker run -d -p 80:4000 vj_cars
 ```
 docker ps
 ```
+
+## Results
 
 ## Things I would do further
 - Dataset is a bit skewed towards a few car models, work on class imbalance issue 
