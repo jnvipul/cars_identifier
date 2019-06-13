@@ -29,6 +29,7 @@ Automate the process of recognizing the details of the cars from images, includi
 ```
 
 ## Code
+All python code is [PEP8 complaint](https://www.python.org/dev/peps/pep-0008/).
 
 ### Packaging
 The model is wrapped in a [python flask](http://flask.pocoo.org/) app which serves the prediction as an api endpoint. 
