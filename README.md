@@ -5,11 +5,12 @@ Automate the process of recognizing the details of the cars from images, includi
 <br>*Build and Deploy a Deep Learning model as a publicaly API endpoint on a clould provider.*
 
 ## Tasks Completed
-- Train a deep learning model to identify car details
+- Trained a deep learning model to identify car details
 - Wrap above model in a python flask app
-- Dockerised the flask app
+- Created a vanilla UI to upload a picture from browser and perform predictions
+- Dockerised the flask web app
 - Docker container deployed on a Google Cloud VM instance
-- Created Open API specification for the same
+- Created Open API specification for the same using Swagger 
 
 ## Dataset
 Training and testing has been done using [Stanford Cars 196 dataset]()
@@ -31,7 +32,7 @@ Training and testing has been done using [Stanford Cars 196 dataset]()
 (https://github.com/jnvipul/cars_identifier/tree/master)
 ```
 
-## Training
+## Training thought process
 ### Transfer Learning
 I have used Transfer Learning with Resnet152 to train the model; training frozen layers as well.
 
