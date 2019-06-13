@@ -79,12 +79,11 @@ Docker container has been deployed on a GCP VM instance.
 ```
 docker build -t vj_cars .
 ```
-<br>
+
 **Step 3.** Run docker container with the command below
 ```
 docker run -d -p 80:4000 vj_cars
 ```
-<br>
 **Step 4.** Confirm if container is running with the command below -: 
 ```
 docker ps
