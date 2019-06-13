@@ -23,10 +23,13 @@ Automate the process of recognizing the details of the cars from images, includi
 (http://tensortaal.com/swagger/)
 ```
 
-* [Bitbucket Repository] (https://bitbucket.org/joeyzbb/vipul_jain/src/master/)
+* [Git Repository] (https://github.com/jnvipul/cars_identifier/tree/master)
 ```
-(https://bitbucket.org/joeyzbb/vipul_jain/src/master/)
+(https://github.com/jnvipul/cars_identifier/tree/master)
 ```
+
+## Training
+- 
 
 ## Code
 All python code is [PEP8 complaint](https://www.python.org/dev/peps/pep-0008/).
