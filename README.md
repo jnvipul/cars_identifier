@@ -47,6 +47,8 @@ This is a very complicated problem, and thus we need a big and complex network f
 ### Learning Rate selection
 For learning rate selection, **Cycling learning rates** has been used as per the [paper by Leslie Smith](https://arxiv.org/abs/1506.01186).
 Idea is to cycle the learning rate between lower bound and upper bound in order to escape local minima and saddle points. 
+<br>
+Quick explanation of Cyclic learning rates can be found on the article I recently published on [Towards Data Science](https://towardsdatascience.com/cyclical-learning-rates-the-ultimate-guide-for-setting-learning-rates-for-neural-networks-3104e906f0ae)
 
 ### Feature Engineering - Data Augmentation
 Data Augmentation techniques have been used and experimented for the kind of data we have. For instance; for car pictures - **warp(perspective), rotation, flips, zoom, lightning** are good augmentation technique; and improved the results.
