@@ -23,6 +23,7 @@ UPLOAD_FOLDER = 'uploaded_images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
 @app.route("/cars/v1/get_car_details", methods=['GET', 'POST'])
 def get_car_details():
     """
@@ -36,23 +37,24 @@ def get_car_details():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], f'img.{extension}'))
             car_class = predict()
             car_details = get_car_details_from_class(car_class)
-            return json.dumps({'class':car_class ,'car_details':car_details})
+            return json.dumps({'class': car_class, 'car_details': car_details})
         else:
             return '''
             <!doctype html>
-            <title>Upload Car Image</title>
+            <title>Upload new File</title>
             <h1>File Select Error!</h1>
             <a href="/file">file</a>
             '''
     return '''
     <!doctype html>
-    <title>Upload Car Image</title>
-    <h1>Upload Car Image</h1>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
     <form action="" method=post enctype=multipart/form-data>
       <p><input type=file name=file>
          <input type=submit value=Upload>
     </form>
     '''
+
 
 def predict():
     """
@@ -67,10 +69,11 @@ def predict():
     # make prediction
     print("Predicting")
     preds, _ = learn.get_preds(ds_type=DatasetType.Test)
-    preds = np.argmax (preds, axis = 1)
+    preds = np.argmax(preds, axis=1)
     preds = preds.data.numpy()
     # return result at zero index as test dataset has only one image
     return int(preds[0])
+
 
 def allowed_file(filename):
     """
@@ -80,13 +83,14 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
+
 def get_car_details_from_class(car_class):
     cars_meta = pd.read_csv(CARS_META_FILE)
     car_details = cars_meta.loc[car_class]['class_names']
     print(car_details)
     return car_details
 
-### swagger specific ###
+# swagger specific
 SWAGGER_URL = '/swagger'
 API_URL = '/static/swagger.json'
 SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
@@ -97,6 +101,7 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     }
 )
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+
 
 # Used as Singelton
 class Model:
@@ -116,6 +121,7 @@ class Model:
         if not Model.instance:
             Model.instance = Model()
         return Model.instance
+
 
 def setup():
     # create required directories
