@@ -15,6 +15,8 @@ Automate the process of recognizing the details of the cars from images, includi
 ## Dataset
 Training and testing has been done using [Stanford Cars 196 dataset]()
 
+Note : The `dataset` folder is is expected to have train and test images in `cars_train` and 'cars_test' folder respectively. These folders are not committed to git to to large sizes.
+
 ## URLs
 
 * [Prediction Link](http://tensortaal.com/cars/v1/get_car_details)
@@ -33,6 +35,9 @@ Training and testing has been done using [Stanford Cars 196 dataset]()
 ```
 
 ## Training thought process
+
+Training code can be found in the notebook `trainer.ipynb`
+
 ### Transfer Learning
 I have used Transfer Learning with Resnet152 to train the model; training frozen layers as well.
 
@@ -84,6 +89,12 @@ docker ps
 ```
 
 ## Results
+Final model has an accuracy of `~85%` on test set.
+
+## Verdict
+Upon analyzing the top losses, the model predicts wrong class in the cases when muliple cars looks very similar from that angle or mostly in the cases when we have a back picture of the car, where it is very difficult to identify the car. 
+<br>
+More images and high quality data can be used to improve the model.
 
 ## Things I would do further
 - Dataset is a bit skewed towards a few car models, work on class imbalance issue 
